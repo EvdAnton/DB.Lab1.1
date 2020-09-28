@@ -8,15 +8,19 @@ CREATE TABLE [dbo].[Address]
     PostalCode       nvarchar(15) not null,
     ModifiedDate     datetime not null
 )
+GO
 
 ALTER TABLE [dbo].[Address]
 ADD CONSTRAINT PK_Address Primary Key (PostalCode, StateProvinceID);
+GO
 
 ALTER TABLE [dbo].[Address]
 ADD CONSTRAINT CHK_Address_PostalCode_Is_Digit CHECK (LOWER(PostalCode) not like '%[a-z]%');
+GO
 
 ALTER TABLE [dbo].[Address]
 ADD CONSTRAINT DF_Address_ModifiedDate DEFAULT GETDATE() FOR ModifiedDate;
+GO
 
 INSERT INTO dbo.Address
 (AddressID,
@@ -45,6 +49,8 @@ FROM (
          FROM AdventureWorks2012.Person.Address) T
          JOIN AdventureWorks2012.Person.StateProvince as A on T.StateProvinceID = A.StateProvinceID
     AND A.CountryRegionCode = 'US' AND (LOWER(T.PostalCode) not like '%[a-z]%') AND MaxAddressId = AddressID;
+GO
 
 ALTER TABLE Address
     ALTER COLUMN City NVARCHAR(20);
+GO

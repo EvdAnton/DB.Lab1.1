@@ -8,6 +8,7 @@ FROM AdventureWorks2012.HumanResources.EmployeeDepartmentHistory
                  EmployeeDepartmentHistory.EndDate is NULL
          JOIN AdventureWorks2012.HumanResources.Department
               ON EmployeeDepartmentHistory.DepartmentID = Department.DepartmentID;
+GO
 
 SELECT Department.DepartmentID,
        Department.Name,
@@ -20,6 +21,7 @@ FROM AdventureWorks2012.HumanResources.Department
                  AdventureWorks2012.HumanResources.Employee.BusinessEntityID
                   AND EndDate is null
 GROUP BY Department.Name, Department.DepartmentID;
+GO
 
 SELECT JobTitle,
        Rate,
@@ -29,3 +31,4 @@ SELECT JobTitle,
 FROM AdventureWorks2012.HumanResources.Employee
          JOIN AdventureWorks2012.HumanResources.EmployeePayHistory
               ON Employee.BusinessEntityID = EmployeePayHistory.BusinessEntityID;
+GO
