@@ -1,3 +1,6 @@
+---$ docker cp ./data/AdventureWorks2012.bak mssql_db:/var/opt/mssql/backup/
+---insert in cmd if bak file not copy into container
+
 RESTORE FILELISTONLY FROM DISK = '/var/opt/mssql/backup/AW2012.bak'
 
 RESTORE DATABASE AdventureWorks2012 FROM DISK = '/var/opt/mssql/backup/AW2012.bak'
