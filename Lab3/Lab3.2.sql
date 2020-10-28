@@ -1,3 +1,4 @@
+
 ALTER TABLE Address
     Add [CountryRegionCode] nvarchar(3), [TaxRate] SMALLMONEY, [DiffMin] as [TaxRate] - 5.00;
 GO
@@ -85,3 +86,6 @@ WHEN NOT MATCHED BY TARGET THEN
             source.TaxRate)
 WHEN NOT MATCHED BY SOURCE THEN DELETE;
 GO
+
+select *
+from Address;

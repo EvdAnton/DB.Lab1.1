@@ -1,3 +1,5 @@
+USE master;
+
 CREATE TABLE [dbo].[Address]
 (
     AddressID        INT          NOT NULL,

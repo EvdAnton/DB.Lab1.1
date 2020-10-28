@@ -1,3 +1,5 @@
+USE master
+
 ALTER TABLE Address
     Add [AddressType] nvarchar(50);
 Go
@@ -13,7 +15,6 @@ DECLARE @Var TABLE
                  ModifiedDate    datetime     not null,
                  AddressType     nvarchar(50)
              );
-Go
 
 INSERT INTO @Var (AddressID, AddressLine1, AddressLine2, City, StateProvinceID, PostalCode, ModifiedDate, AddressType)
 SELECT Address.AddressID,
@@ -29,25 +30,25 @@ SELECT Address.AddressID,
                       ON AddressType.AddressTypeID = A.AddressTypeID
         where Address.AddressID = A.AddressID)
 FROM Address;
-Go
-
 
 UPDATE Address
 SET Address.AddressType = [Var].AddressType
 FROM @Var as [Var]
 WHERE Address.AddressID = [Var].AddressID;
-Go
 
 UPDATE Address
 SET Address.AddressLine2 = Address.AddressLine1
 FROM Address
 WHERE Address.AddressLine2 is null
-Go
+
+SELECT * FROM @Var;
 
 DELETE
 FROM Address
 WHERE AddressID not in (select max(AddressID) from Address GROUP BY Address.AddressType);
 Go
+
+SELECT * FROM Address
 
 ALTER TABLE [dbo].[Address]
     DROP COLUMN [AddressType];

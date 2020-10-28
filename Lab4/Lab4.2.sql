@@ -60,36 +60,7 @@ BEGIN
                       On SR.Name = inserted.SRName
     end;
 END;
-
-
-DROP TRIGGER Production.WorkOrderViewInsteadUpdateTrigger;
-
-CREATE TRIGGER Production.WorkOrderViewInsteadUpdateTrigger
-    ON Production.WorkOrderView
-    INSTEAD OF UPDATE AS
-BEGIN
-    BEGIN
-        UPDATE Production.ScrapReason
-        SET [Name]         = [inserted].[SRName],
-            [ModifiedDate] = [inserted].[SRModifiedDate]
-        FROM inserted
-        where inserted.ScrapReasonID = Production.ScrapReason.ScrapReasonID
-    END;
-
-    BEGIN
-        UPDATE Production.WorkOrder
-        SET [ProductID]     = [inserted].[ProductId],
-            [ScrappedQty]   = [inserted].[ScrappedQty],
-            [StartDate]     = [inserted].[StartDate],
-            [EndDate]       = [inserted].[EndDate],
-            [DueDate]       = [inserted].[DueDate],
-            [ScrapReasonID] = [inserted].[ScrapReasonID],
-            [ModifiedDate]  = [inserted].[ModifiedDate]
-        from inserted
-
-    END;
-end;
-GO
+Go
 
 CREATE TRIGGER Production.WorkOrderScrapReasonVIEW_Update
     ON Production.WorkOrderView
@@ -131,12 +102,12 @@ FROM Production.WorkOrderView
 where SRName = 'new reason';
 
 SELECT *
-FROM Production.ScrapReason
-where Name = 'new reason';
+FROM Production.WorkOrderView
+where SRName = 'Trim length too long again 25';
 
 UPDATE Production.WorkOrderView
 SET SRName = 'new reason'
-WHERE SRName = 'Trim length too long again 7';
+WHERE SRName = 'Trim length too long again 25';
 
 DELETE
 FROM Production.WorkOrderView
