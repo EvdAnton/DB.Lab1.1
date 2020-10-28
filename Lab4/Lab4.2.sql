@@ -1,5 +1,3 @@
-DROP VIEW Production.WorkOrderView
-
 CREATE VIEW Production.WorkOrderView
             (
              [WorkOrderId],
@@ -97,13 +95,6 @@ INSERT INTO Production.WorkOrderView(ProductId, OrderQty, ScrappedQty, StartDate
 VALUES (316, 97, 3, '2014-05-31 00:00:00.000', '2020-06-10 00:00:00.000', '2014-06-11 00:00:00.000',
         '2014-06-10 00:00:00.000', 'Trim length too long again 25', '2008-04-30 00:00:00.000');
 
-SELECT *
-FROM Production.WorkOrderView
-where SRName = 'new reason';
-
-SELECT *
-FROM Production.WorkOrderView
-where SRName = 'Trim length too long again 25';
 
 UPDATE Production.WorkOrderView
 SET SRName = 'new reason'
