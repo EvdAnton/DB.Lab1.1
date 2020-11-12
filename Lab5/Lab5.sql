@@ -1,3 +1,7 @@
+IF OBJECT_ID (N'[Purchasing].GetSumOfOrders') IS NOT NULL
+    DROP FUNCTION [Purchasing].GetSumOfOrders
+GO
+
 CREATE FUNCTION [Purchasing].GetSumOfOrders(@PurchaseOrderID INT)
 RETURNS MONEY
 AS
@@ -12,7 +16,9 @@ GO
 
 PRINT [Purchasing].GetSumOfOrders(1);
 
-DROP FUNCTION Sales.GetBestOrdersByCustomerID
+IF OBJECT_ID (N'[Sales].GetBestOrdersByCustomerID') IS NOT NULL
+    DROP FUNCTION [Sales].GetBestOrdersByCustomerID
+GO
 
 CREATE FUNCTION [Sales].GetBestOrdersByCustomerID(@CustomerID INT, @CountOfRow INT)
 RETURNS TABLE AS RETURN (
@@ -52,6 +58,10 @@ GO
 SELECT * FROM [AdventureWorks2012].[Sales].[Customer] CROSS APPLY [AdventureWorks2012].[Sales].[GetBestOrdersByCustomerID]([CustomerID], 3);
 SELECT * FROM [AdventureWorks2012].[Sales].[Customer] OUTER APPLY [AdventureWorks2012].[Sales].[GetBestOrdersByCustomerID]([CustomerID], 3);
 
+
+IF OBJECT_ID (N'[Sales].GetBestOrdersByCustomerID') IS NOT NULL
+    DROP FUNCTION [Sales].GetBestOrdersByCustomerID
+GO
 
 CREATE FUNCTION [Sales].GetBestOrdersByCustomerID(@CustomerID INT, @CountOfRow INT)
 RETURNS @result TABLE(
